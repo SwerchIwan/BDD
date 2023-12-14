@@ -11,9 +11,10 @@ from redis import asyncio as aioredis
 
 from type_subscription.router import router as router_sub
 from group.router import router as router_group
+from tasks.router import router as router_tasks
 
 app = FastAPI(
-    title="Trading App"
+    title="BizMetrics"
 )
 
 app.include_router(
@@ -30,6 +31,7 @@ app.include_router(
 
 app.include_router(router_sub)
 app.include_router(router_group)
+app.include_router(router_tasks)
 
 
 @app.on_event("startup")
