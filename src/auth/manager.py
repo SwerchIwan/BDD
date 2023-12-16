@@ -5,6 +5,7 @@ from fastapi_users import BaseUserManager, IntegerIDMixin, exceptions, models, s
 
 from .model import User
 from .utils import get_user_db
+from random import randint
 
 from config import SECRET_AUTH
 from src.tasks.tasks import send_welcome_message
@@ -15,8 +16,9 @@ class UserManager(IntegerIDMixin, BaseUserManager[User, int]):
     verification_token_secret = SECRET_AUTH
 
     async def on_after_register(self, user: User, request: Optional[Request] = None):
-        send_welcome_message(user.username, user.email)
-        print(f"User {user.id} has registered.")
+        code = randint(100000, 999999)
+        send_welcome_message(user.username, user.email, code)
+        print(f"User {user.id} has registered. ")
 
     async def create(
         self,

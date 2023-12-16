@@ -1,9 +1,8 @@
-import json
 import time
 
 from fastapi import APIRouter, Depends
 from fastapi_cache.decorator import cache
-from sqlalchemy import select, insert
+from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 

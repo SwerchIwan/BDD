@@ -1,0 +1,131 @@
+@import url(chota.css)
+
+@import url(https://fonts.googleapis.com/css?family=Rubik+One&subset=latin,cyrillic);
+.gradient-text {
+  font-size: 50px;
+  text-transform: uppercase;
+  background: linear-gradient(45deg, #0B2349 33%, #0D61BC 66%, #8AA9D6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: #0B2349;
+  font-family: "FT_bold";
+}
+
+@font-face {
+  font-family: "FT";
+  src: url("../fonts/1212w.otf");
+  font-style: normal;
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "PT";
+  src: url("../fonts/PT.ttf");
+  font-style: normal;
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "PT_bold";
+  src: url("../fonts/PT_bold.ttf");
+  font-style: normal;
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "FT_bold";
+  src: url("../fonts/FT_bold.otf");
+  font-style: normal;
+
+}
+
+
+:root {
+  --color-primary: rgb(19,14,80); /* brand color */
+}
+
+
+body{
+    font-family: "PT";
+}
+
+.__nav{
+    display: flex;
+    justify-content: space-between;
+}
+
+.bg-f{
+    background: var(--color-primary);
+    color: white;
+    border-radius: 20px;
+}
+
+.nav{
+    margin-top: 25px;
+    font-size: 8px;
+}
+
+.btn{
+    border-radius: 20px;
+    font-size: 14px;
+}
+
+#btn-f{
+    color:white;
+    background-color: rgb(19,14,80);
+    margin-top: 10px;
+    padding: 10px 40px;
+}
+
+#btn-f2{
+    color:white;
+    background-color: rgb(19,14,80);
+    padding: 10px 40px;
+}
+
+.main{
+    max-width: 1600px;
+    margin: 0 auto;
+}
+
+.logo-text{
+    font-family: "PT_bold";
+    font-size: 30px;
+    color: black;
+    margin-left: 15px;
+    padding-top: 20px;
+}
+
+.logo{
+    display: flex;
+}
+
+.comp{
+    margin-top: 50px;
+    width: 100%;
+    height: 900px;
+    border-radius: 70px;
+    border: 15px solid black;
+    display: flex;
+    justify-content: center; /* Выравнивание по горизонтали */
+    align-items: center;
+}
+
+.__comp-block-text{
+
+}
+
+.grey-text{
+    margin-top: 15px;
+    font-size: 18px;
+    color: #93929A;
+}
+
+.gradient-text{
+    font-size: 30px;
+}
+
+.un_text{
+    font-size: 12px;
+}
+

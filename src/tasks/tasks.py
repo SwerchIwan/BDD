@@ -1,9 +1,12 @@
+import random
 import smtplib
 from email.message import EmailMessage
 
 from celery import Celery
 
 from config import SMTP_PASSWORD, SMTP_USER
+
+from random import randint
 
 SMTP_HOST = "smtp.gmail.com"
 SMTP_PORT = 465
@@ -28,7 +31,7 @@ def get_email_template_dashboard(username: str):
     return email
 
 
-def get_welcome_message(username: str, email_: str):
+def get_welcome_message(username: str, email_: str, code: int):
     email = EmailMessage()
     email['Subject'] = 'BizMetrics '
     email['From'] = SMTP_USER
@@ -37,6 +40,8 @@ def get_welcome_message(username: str, email_: str):
     email.set_content(
         '<div>'
         f'<h1>Здравствуйте, {username} 😎😎😎!</h1> '
+        '<h3>Спасибо что зарегистрировались на нашем сайте, с уважением команда BizMetrics!</h3>'
+        f'<h3> Код для подтверждения почты {code} </h3>'
         '<img src="https://opis-cdn.tinkoffjournal.ru/mercury/american-psycho-1234.1dai5n..gif" width="600">'
         '</div>',
         subtype='html'
@@ -54,8 +59,8 @@ def send_email_report_dashboard(username: str):
 
 
 @celery.task
-def send_welcome_message(username: str, email_: str):
-    email = get_welcome_message(username, email_)
+def send_welcome_message(username: str, email_: str, code: int):
+    email = get_welcome_message(username, email_, code)
     with smtplib.SMTP_SSL(SMTP_HOST, SMTP_PORT) as server:
         server.login(SMTP_USER, SMTP_PASSWORD)
         server.send_message(email)
