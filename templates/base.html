@@ -12,21 +12,29 @@
 
 </head>
 <body>
+<script>
+  window.addEventListener("scroll", function() {
+    var nav = document.querySelector(".nav");
+    nav.classList.toggle("scroll", window.scrollY > 0);
+  });
+</script>
     <div class="main">
         <nav class="nav" >
-              <div class="nav-left">
-                <a class="main-str">
-                    <div class="logo">
-                        <div class="logo-text is-vertical-align">
-                            <p>BizMetrics</p>
+              <div class="__nav">
+                  <div class="nav-left">
+                    <a  class="main-str brand" href="http://127.0.0.1:8000/pages/base">
+                        <div class="logo">
+                            <div class="logo-text is-vertical-align">
+                                <img src="{{ url_for( 'static', path='logo.svg' )}}" alt="">
+                            </div>
                         </div>
-                    </div>
-                </a>
-              </div>
-              <div class="nav-right is-vertical-align">
-                  <div > <a class="button outline btn">Ценовая политика</a> </div>
-                  <div> <a class="button outline btn">Документ</a> </div>
-                  <div class="col-5.5"> <a id="btn-f" class="button btn" >Войти в аккаунт или зарегистрироваться</a> </div>
+                    </a>
+                  </div>
+                  <div class="nav-right is-vertical-align">
+                      <div > <a class="button outline btn">Ценовая политика</a> </div>
+                      <div> <a class="button outline btn">Документ</a> </div>
+                      <div class="col-5.5"> <a id="btn-f" class="button btn" >Войти в аккаунт или зарегистрироваться</a> </div>
+                  </div>
               </div>
         </nav>
 
@@ -35,7 +43,7 @@
                 <div class="__comp">
                     <div style="width: 600px; height: 400px;" class="__comp-block-text ">
                         <div class="row is-horizontal-align">
-                              <div class="col-3 is-horizontal-align grey-text"> <p>ПРЕДСТАВЛЯЕМ</p>  </div>
+                              <div class="col-12 is-horizontal-align grey-text"> <p>ПРЕДСТАВЛЯЕМ</p>  </div>
                         </div>
 
                         <div class="row is-horizontal-align">
@@ -59,6 +67,51 @@
                 </div>
             </div>
         </div>
+
+        <div class="gradient-block ">
+            <div style="max-width: 1000px; height: 400px; margin: 0 auto;" class="__comp-block-text  margin-auto ">
+                        <div class="row is-horizontal-align margin-auto">
+                              <div class="col-12 is-horizontal-align tx-primary margin-top ">
+                                 <h2> Наши партнеры </h2>
+                              </div>
+                             <div class="row is-horizontal-align ">
+                                  <div class="col text-center block-shadow is-horizontal-align"> <div class="icon col-4"><img src="{{ url_for( 'static', path='icon/google.png' )}}" alt=""></div> <div class="text-icon col">Google</div> </div>
+                                  <div class="col text-center block-shadow is-horizontal-align"> <div class="icon col-4"><img src="{{ url_for( 'static', path='icon/microsoft.png' )}}" alt=""></div> <div class="text-icon col">Microsoft</div>  </div>
+                                  <div class="col text-center block-shadow is-horizontal-align"> <div class="icon col-4"><img src="{{ url_for( 'static', path='icon/ai.png' )}}" alt=""></div> <div class="text-icon col">OpenAI</div>  </div>
+                             </div>
+
+                        </div>
+            </div>
+            <div class="block-info">
+            <div class="__block-info row margin-auto is-horizontal-align">
+                <div class="col-4 text-center is-horizontal-align"><img src="{{ url_for( 'static', path='analysis.gif' )}}" alt=""></div>
+                <div class="col-4  is-horizontal-align is-vertical-align">
+                    <div  class="text-left" >
+                        <div class="row is-horizontal-align text-left">
+                              <div class="col-10 elem-left"> <p class="font-18">Вместе лучше</p>  </div>
+                        </div>
+
+                        <div class="row is-horizontal-align text-left">
+                              <div class="col-10 is-horizontal-align tx-primary big-text text-left">
+                                 <p>Отлично подходит для работы в больших и маленьких группах </p>
+                              </div>
+                        </div>
+
+                        <div class="row is-horizontal-align">
+                              <div class="col-10 is-horizontal-align un_text text-left">
+                                 <p>Для комфортной работы с вашими коллегами у нас есть возможность создать команды </p>
+                              </div>
+                        </div>
+                        <div class="col-11 f-content-divider"></div>
+                        <div class="margin-auto col-11 row is-vertical-align margin-10"> <div class="icon col-2  is-vertical-align"><img src="{{ url_for( 'static', path='icon/group.png' )}}" alt=""></div> <div class="text-advantages col-10 text-justify"><p> Доступ к анализу данных может получить несколько людей через функцию добавления себя и коллег.</p></div>  </div>
+                        <div class="margin-auto col-11 row is-vertical-align margin-10"> <div class="icon col-2  is-vertical-align"><img src="{{ url_for( 'static', path='icon/rocket.png' )}}" alt=""></div> <div class="text-advantages col-10 text-justify"><p>Наш сайт использует расположен на мощных серверах и использует современные технологии, анализ будет моментальным</p></div>  </div>
+
+                    </div>
+            </div>
+        </div>
+        </div>
+
+
     </div>
 
 </body>
