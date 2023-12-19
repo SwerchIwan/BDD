@@ -3,17 +3,30 @@
 @import url(https://fonts.googleapis.com/css?family=Rubik+One&subset=latin,cyrillic);
 .gradient-text {
   font-size: 50px;
-  text-transform: uppercase;
   background: linear-gradient(45deg, #0B2349 33%, #0D61BC 66%, #8AA9D6);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   color: #0B2349;
-  font-family: "ubuntu";
+  font-family: "sans-caption-bold";
 }
 
 @font-face {
   font-family: "ubuntu";
   src: url("../fonts/Ubuntu-Medium.ttf");
+  font-style: normal;
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "sans-caption";
+  src: url("../fonts/PTSansCaption-Regular.ttf");
+  font-style: normal;
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "sans-caption-bold";
+  src: url("../fonts/PTSansCaption-Bold.ttf");
   font-style: normal;
   font-weight: normal;
 }
@@ -208,8 +221,9 @@ to-purple-400
     font-size: 30px;
 }
 
-.font-18{
-    font-size: 18px;
+.font{
+    font-size: 20px;
+    text-transform: uppercase;
 }
 
 .f-content-divider {
