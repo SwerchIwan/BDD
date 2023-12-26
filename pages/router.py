@@ -7,9 +7,21 @@ router = APIRouter(
 )
 
 templates = Jinja2Templates(directory="../templates")
+templates_reg = Jinja2Templates(directory="../templates/auth-reg")
+
+@router.get("/main")
+def get_main_page(request: Request):
+    return templates.TemplateResponse("main.html", {"request": request})
 
 
-@router.get("/base")
-def get_base_page(request: Request):
-    return templates.TemplateResponse("base.html", {"request": request})
+@router.get("/reg")
+def get_reg_page(request: Request):
+    return templates_reg.TemplateResponse("registration.html", {"request": request})
+
+
+@router.get("/auth")
+def get_auth_page(request: Request):
+    return templates_reg.TemplateResponse("auth.html", {"request": request})
+
+
 

@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>BizMetrics</title>
+    <title>{% block title %} {% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for( 'static', path='css/chota/chota.css' )}}">
     <link rel="stylesheet" href="{{ url_for( 'static', path='css/style.css' )}}">
     <link rel="stylesheet" href="{{ url_for( 'static', path='css/normalize.css' )}}">
@@ -38,101 +38,52 @@
               </div>
         </nav>
 
-        <div class="intro">
-            <div class="comp">
-                <div class="__comp">
-                    <div style="width: 600px; height: 400px;" class="__comp-block-text ">
-                        <div class="row is-horizontal-align">
-                              <div class="col-12 is-horizontal-align grey-text"> <p>ПРЕДСТАВЛЯЕМ</p>  </div>
-                        </div>
+        {% block content %}
 
-                        <div class="row is-horizontal-align">
-                              <div class="col-10 is-horizontal-align text-center gradient-text">
-                                 <p>Полный анализ показателей вашего бизнеса. А так же построение графиков. </p>
-                              </div>
+        {% endblock %}
+        <footer>
+            <div class="--footer">
+                <div class="elems-footer row">
+                    <div class="elem-footer col-2">
+                        <a  class="main-str brand" href="http://127.0.0.1:8000/pages/base">
+                        <div class="logo">
+                            <div class="logo-text is-vertical-align">
+                                <img src="{{ url_for( 'static', path='logo.svg' )}}" alt="">
+                            </div>
                         </div>
-
-                        <div class="row is-horizontal-align">
-                              <div class="col-10 is-horizontal-align text-center un_text">
-                                 <p>Для комфортной и быстрой работы с вашим бизнесом, а ткаже для увелечения прибыли. Предоставляем вам доступ у инструментам анализа вашего бизнеса </p>
-                              </div>
+                    </a>
+                    </div>
+                    <div class="elem-footer-society is-vertical-align ">
+                        <a href="">
+                            <div class="society-block is-rounded">
+                            <div class="__society-block  is-vertical-align">
+                                <img clas src="{{ url_for( 'static', path='icon/instagram.png' )}}" alt="">
+                            </div>
                         </div>
-                        <div class="row is-horizontal-align">
-                              <div class="col-10 is-horizontal-align ">
-                                  <div class="col-5.5"> <a id="btn-f2" class="button btn" >Начало работы</a> </div>
-                                   <div class="col-5.5"> <a class="button outline btn" >DOC API</a> </div>
-                              </div>
+                        </a>
+                        <div class="society-block is-rounded">
+                            <a href="">
+                                <div class="__society-block is-vertical-align">
+                                <img clas src="{{ url_for( 'static', path='icon/youtube.png' )}}" alt="">
+                            </div>
+                            </a>
+                        </div>
+                       <div class="society-block is-rounded">
+                           <a href="">
+                               <div class="__society-block is-vertical-align">
+                                <img clas src="{{ url_for( 'static', path='icon/telegram.png' )}}" alt="">
+                            </div>
+                           </a>
                         </div>
                     </div>
                 </div>
+                <div class="f-content-divider"></div>
+                <div class="is-horizontal-align text-footer">
+                    <p>Авторские права © 2010-2023 BizMetrics Company B.C. Все права защищены.</p>
+                </div>
             </div>
-        </div>
 
-        <div class="gradient-block ">
-            <div style="max-width: 1000px; height: 400px; margin: 0 auto;" class="__comp-block-text  margin-auto ">
-                        <div class="row is-horizontal-align margin-auto">
-                              <div class="col-12 is-horizontal-align tx-primary margin-top ">
-                                 <h2> Наши партнеры </h2>
-                              </div>
-                             <div class="row is-horizontal-align ">
-                                  <div class="col text-center block-shadow is-horizontal-align"> <div class="icon col-4"><img src="{{ url_for( 'static', path='icon/google.png' )}}" alt=""></div> <div class="text-icon col">Google</div> </div>
-                                  <div class="col text-center block-shadow is-horizontal-align"> <div class="icon col-4"><img src="{{ url_for( 'static', path='icon/microsoft.png' )}}" alt=""></div> <div class="text-icon col">Microsoft</div>  </div>
-                                  <div class="col text-center block-shadow is-horizontal-align"> <div class="icon col-4"><img src="{{ url_for( 'static', path='icon/ai.png' )}}" alt=""></div> <div class="text-icon col">OpenAI</div>  </div>
-                             </div>
-
-                        </div>
-            </div>
-            <div class="block-info">
-            <div class="__block-info row margin-auto is-horizontal-align">
-                <div class="col-4 text-center is-horizontal-align"><img src="{{ url_for( 'static', path='analysis.gif' )}}" alt=""></div>
-                <div class="col-4  is-horizontal-align is-vertical-align">
-                    <div  class="text-left" >
-                        <div class="row is-horizontal-align text-left">
-                              <div class="col-10 elem-left font"> <p>Вместе лучше</p>  </div>
-                        </div>
-
-                        <div class="row is-horizontal-align text-left">
-                              <div class="col-10 is-horizontal-align tx-primary big-text text-left">
-                                 <p>Отлично подходит для работы в больших и маленьких группах </p>
-                              </div>
-                        </div>
-
-                        <div class="row is-horizontal-align">
-                              <div class="col-10 is-horizontal-align un_text text-left">
-                                 <p>Для комфортной работы с вашими коллегами у нас есть возможность создать команды </p>
-                              </div>
-                        </div>
-                        <div class="col-11  f-content-divider"></div>
-                        <div class="margin-auto is-horizontal-align col-11 row is-vertical-align margin-10"> <div class="icon col-1  is-vertical-align"><img src="{{ url_for( 'static', path='icon/group.png' )}}" alt=""></div> <div class="text-advantages col-9 text-justify"><p> Доступ к анализу данных может получить несколько людей через функцию добавления себя и коллег.</p></div>  </div>
-                        <div class="margin-auto is-horizontal-align col-11 row is-vertical-align margin-10"> <div class="icon col-1  is-vertical-align"><img src="{{ url_for( 'static', path='icon/rocket.png' )}}" alt=""></div> <div class="text-advantages col-9 text-justify"><p>Наш сайт расположен на мощных серверах и использует современные технологии, анализ будет моментальным</p></div>  </div>
-
-                    </div>
-            </div>
-        </div>
-        </div>
-
-
+        </footer>
     </div>
-
-        <div class="block-more-info is-horizontal-align">
-            <div style="width: 600px; height: 400px;" class="__comp-block-text ">
-                        <div class="row is-horizontal-align">
-                              <div class="col-12 is-horizontal-align grey-text"> <p>БОЛЬШЕ ВОЗМОЖНОСТЕЙ</p>  </div>
-                        </div>
-
-                        <div class="row is-horizontal-align">
-                              <div class="col-10 is-horizontal-align text-center gradient-text">
-                                 <p> Самый простой способ настроить модели для еще большего удобства.</p>
-                              </div>
-                        </div>
-
-                        <div class="row is-horizontal-align">
-                              <div class="col-10 is-horizontal-align text-center un_text">
-                                 <p>Зарегистрируйтесь, чтобы войти в систему и изучить дополнительные функции, не перечисленные в списке.</p>
-                              </div>
-                        </div>
-                    </div>
-        </div>
-
 </body>
 </html>

@@ -1,0 +1,77 @@
+.__reg-form{
+    max-width: 850px;
+
+}
+
+.un_logo_text{
+    font-family: "ubuntu";
+    font-size: 20px;
+    margin-top: 15px;
+    margin: 0 auto;
+}
+
+.reg-text-info{
+    margin-top: 20px;
+    font-family: "sans-caption";
+}
+
+.input-elem-reg{
+    margin: 0 auto;
+    margin-bottom: 25px;
+}
+
+#reg-submit{
+    width: 100%;
+}
+
+
+#email{
+    border-radius: 15px;
+    padding: 12px;
+    padding-left: 50px;
+    background-color: #F3F5F7;
+    border: none;
+}
+
+#name{
+    border-radius: 15px;
+    padding: 12px;
+    padding-left: 50px;
+    background-color: #F3F5F7;
+    border: none;
+}
+
+
+#password{
+    border-radius: 15px;
+    padding: 12px;
+    padding-left: 50px;
+    background-color: #F3F5F7;
+    border: none;
+}
+
+#reg-submit{
+    border-radius: 15px;
+    padding: 25x;
+    background-color: #1990FF;
+}
+
+.input-container {
+  position: relative;
+}
+
+.icon {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translate( 0, -37%);
+  width: 25px;
+}
+
+a{
+    color: #1990FF;
+}
+
+.__reg-form{
+    max-height: 600px;
+}
