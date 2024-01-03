@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, Union
 
 from fastapi import Depends, Request
 from fastapi_users import BaseUserManager, IntegerIDMixin, exceptions, models, schemas
@@ -9,6 +9,10 @@ from random import randint
 
 from config import SECRET_AUTH
 from src.tasks.tasks import send_welcome_message
+import passlib.pwd
+
+
+
 
 
 class UserManager(IntegerIDMixin, BaseUserManager[User, int]):
@@ -21,8 +25,8 @@ class UserManager(IntegerIDMixin, BaseUserManager[User, int]):
         print(f"User {user.id} has registered. ")
 
     async def create(
-        self,
         user_create: schemas.UC,
+        self,
         safe: bool = False,
         request: Optional[Request] = None,
     ) -> models.UP:

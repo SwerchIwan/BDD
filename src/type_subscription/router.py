@@ -34,10 +34,3 @@ async def get_subscription(session: AsyncSession = Depends(get_async_session)):
         subscription_list.append(subscription_dict)
 
     return subscription_list
-
-
-@router.get("/long_operation")
-@cache(expire=30)
-def get_long_on():
-    time.sleep(2)
-    return "Много данных"
