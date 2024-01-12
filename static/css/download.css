@@ -1,0 +1,32 @@
+.block-download{
+    height: 700px;
+
+}
+
+.__block-download{
+    height: 100%;
+}
+
+.__block-download-elem{
+
+    background-color: white;
+    border-radius: 5px;
+}
+
+.file-input{
+
+    border: solid 2px white;
+}
+
+.icon-download{
+    margin: 0 auto;
+}
+
+.file-input-wrapper {
+  text-align: center;
+}
+
+.input-file-row {
+	display: inline-block;
+}
+

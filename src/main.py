@@ -3,18 +3,21 @@ import uvicorn
 from auth.base_config import auth_backend, fastapi_users
 from auth.schemas import UserRead, UserCreate
 
+import os
+
 from fastapi_cache import FastAPICache
 from fastapi_cache.backends.redis import RedisBackend
 from fastapi_cache.decorator import cache
-from fastapi.staticfiles import StaticFiles
 
 from redis import asyncio as aioredis
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 
 from type_subscription.router import router as router_sub
 from group.router import router as router_group
 from tasks.router import router as router_tasks
 from pages.router import router as router_pages
+from work.router import router as router_work
 
 app = FastAPI(
     title="BizMetrics"
@@ -38,6 +41,12 @@ app.include_router(router_sub)
 app.include_router(router_group)
 app.include_router(router_tasks)
 app.include_router(router_pages)
+app.include_router(router_work)
+
+
+
+app.mount("/media", StaticFiles(directory="../media"), name='media')
+
 
 
 origins = [
@@ -57,6 +66,5 @@ app.add_middleware(
 async def startup():
     redis = aioredis.from_url("redis://localhost", encoding="utf-8", decode_responses=True)
     FastAPICache.init(RedisBackend(redis), prefix="fastapi-cache")
-
 
 

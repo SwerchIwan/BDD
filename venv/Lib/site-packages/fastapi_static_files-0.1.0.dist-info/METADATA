@@ -1,0 +1,17 @@
+Metadata-Version: 2.1
+Name: fastapi_static_files
+Version: 0.1.0
+Summary: Static file serving ASGI app for fast api with indexing files in directory support
+Project-URL: Homepage, https://github.com/mahyarkarimi/fastapi_static_files.git
+Project-URL: Bug Tracker, https://github.com/mahyarkarimi/fastapi_static_files/issues
+Author-email: Mahyar Karimi <mahyarkarimi@rocketmail.com>
+License-File: LICENSE
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.7
+Requires-Dist: fastapi
+Requires-Dist: jinja2
+Description-Content-Type: text/markdown
+
+# FastAPI Static File Serving

@@ -24,4 +24,8 @@ def get_auth_page(request: Request):
     return templates_reg.TemplateResponse("auth.html", {"request": request})
 
 
+@router.get("/analysis")
+def get_analysis_page(request: Request):
+    return templates.TemplateResponse("work.html", {"request": request})
+
 
