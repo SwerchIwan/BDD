@@ -56,6 +56,7 @@
 body{
     font-family: "ubuntu";
     padding-top: 100px;
+    overflow-x: hidden;
 }
 
 .__nav{
@@ -114,6 +115,7 @@ body{
     padding: 10px 40px;
     font-family: "ubuntu-bold";
 }
+
 
 .main{
     max-width: 1600px;

@@ -1,4 +1,5 @@
 import json
+from io import BytesIO
 
 from fastapi import APIRouter, Depends, FastAPI, UploadFile, File
 from sqlalchemy import select, insert
@@ -15,13 +16,15 @@ router = APIRouter(
     tags=["Work"]
 )
 
+
 @router.post("/upload")
 async def upload_file(file: UploadFile = File(...)):
     # Загрузка файла
     data = await file.read()
 
     # Создание DataFrame с использованием pandas
-    df = pd.read_excel(data)
+    data_io = BytesIO(data)
+    df = pd.read_excel(data_io)
 
     # Можно выполнить различные операции с DataFrame
     # Например, получить список столбцов:
