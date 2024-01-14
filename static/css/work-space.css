@@ -1,0 +1,30 @@
+.block-menu-comp{
+    height: 870px;
+    background-color: #484646;
+    border-radius: 50px 0px 0px 50px;
+}
+
+.__comp{
+    width: 100%;
+    margin: 0px;
+    border-radius: 70px;
+}
+
+.comp{
+    padding: 0;
+}
+
+.__block-menu-comp{
+
+    height: 100%;
+    padding: 50px 0px;
+}
+
+.__block-menu-comp-friend a{
+    margin_top: 20px;
+    margin-bottom: 20px;
+}
+
+.black{
+    color: black;
+}

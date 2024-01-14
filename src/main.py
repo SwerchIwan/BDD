@@ -18,6 +18,7 @@ from group.router import router as router_group
 from tasks.router import router as router_tasks
 from pages.router import router as router_pages
 from work.router import router as router_work
+from result_analysis.router import router as router_analysis
 
 app = FastAPI(
     title="BizMetrics"
@@ -42,6 +43,7 @@ app.include_router(router_group)
 app.include_router(router_tasks)
 app.include_router(router_pages)
 app.include_router(router_work)
+app.include_router(router_analysis)
 
 
 

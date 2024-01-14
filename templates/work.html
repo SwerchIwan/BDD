@@ -18,20 +18,68 @@
                   <img src="{{ url_for( 'static', path='icon/upload.png' )}}" alt="">
                </div>
               <div class="file-input-wrapper">
-                <form action="/work/upload" method="post"  enctype="multipart/form-data" onsubmit="return false;">
-                   <input type="file" id="myFileInput" style="display: none;">
-                     <button id="btn-f-download" onclick="document.getElementById('myFileInput').click()">Выбрать файл</button>
-                     <div class="block-selected-name">
-                         <p id="selectedFileName"></p>
-                     </div>
+        <form action="/pages/result_analysis" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
+            <input type="file" id="myFileInput" style="display: none;" onchange="handleFileSelect(event)">
+            <button id="btn-f-download" onclick="handleFileInputClick(event)">Выбрать файл</button>
+            <div class="block-selected-name">
+                <p id="selectedFileName"></p>
+            </div>
 
-                     <script>
-                       document.getElementById('myFileInput').addEventListener('change', function() {
-                         var file = this.files[0];
-                         document.getElementById('selectedFileName').textContent = file.name;
-                       });
-                     </script>
-               </form>
+            <script>
+                function handleFileInputClick(event) {
+                    event.preventDefault(); // Задерживаем отправку формы
+                    document.getElementById('myFileInput').click();
+                }
+
+
+                function handleFileSelect(event) {
+                    var fileInput = event.target;
+                    var selectedFileName = fileInput.files[0].name;
+                    document.getElementById('selectedFileName').textContent = selectedFileName;
+
+                    if (selectedFileName.endsWith('.xlsx')) {
+                        submitForm();
+                    } else {
+                        alert('Выберите файл в формате .xlsx');
+                    }
+                }
+
+                function submitForm() {
+                    var fileInput = document.getElementById('myFileInput');
+                    var file = fileInput.files[0];
+
+                    var form = new FormData();
+                    form.append('file', file);
+
+                    fetch('/work/upload', {
+                        method: 'POST',
+                        body: form
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                       console.log(1)
+
+                    })
+                    .catch(error => {
+                        console.error('Ошибка при загрузке файла:', error);
+                    });
+                }
+
+
+                function validateForm() {
+                    var selectedFileName = document.getElementById('selectedFileName').textContent;
+
+                    if (selectedFileName === "") {
+                        alert('Выберите файл');
+                        return false;
+                    }
+
+                    return true;
+                }
+            </script>
+        </form>
+
+
               </div>
                 <div class="block-text-download">
                     <div class="__block-text-download">

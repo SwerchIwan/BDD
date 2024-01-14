@@ -1,5 +1,12 @@
-from fastapi import APIRouter, Request
+from typing import List, Dict
+
+from fastapi import APIRouter, Request, Query, Depends, File, UploadFile
 from fastapi.templating import Jinja2Templates
+from fastapi.responses import HTMLResponse
+import os
+import pandas as pd
+
+from src.work.router import upload_file
 
 router = APIRouter(
     prefix="/pages",
@@ -29,3 +36,6 @@ def get_analysis_page(request: Request):
     return templates.TemplateResponse("work.html", {"request": request})
 
 
+@router.get("/result_analysis", response_class=HTMLResponse)
+def get_result_analysis_page(request: Request, file: UploadFile = File(...), df: List[Dict] = Depends(upload_file)):
+    return templates.TemplateResponse("result-analysis.html", {"request": request, "file": file, "df": df})

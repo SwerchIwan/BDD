@@ -1,9 +1,12 @@
 import json
 from io import BytesIO
+import tempfile
 
 from fastapi import APIRouter, Depends, FastAPI, UploadFile, File
 from sqlalchemy import select, insert
 from sqlalchemy.ext.asyncio import AsyncSession
+from fastapi.responses import RedirectResponse
+
 
 from src.database import get_async_session
 from src.auth.model import user
@@ -19,19 +22,17 @@ router = APIRouter(
 
 @router.post("/upload")
 async def upload_file(file: UploadFile = File(...)):
-    # Загрузка файла
-    data = await file.read()
+    try:
+        data = await file.read()
 
-    # Создание DataFrame с использованием pandas
-    data_io = BytesIO(data)
-    df = pd.read_excel(data_io)
+        data_io = BytesIO(data)
+        df = pd.read_excel(data_io)
+        df = df.fillna('')
+        print(df)
 
-    # Можно выполнить различные операции с DataFrame
-    # Например, получить список столбцов:
-    columns = df.columns.tolist()
-
-    # Вернуть данные или выполнить другие операции по вашему выбору
-    return {"columns": columns}
+        return df
+    except Exception as e:
+        return RedirectResponse(url="/pages/error", status_code=302)
 
 @router.get("/analysis")
 async def analysis(session: AsyncSession = Depends(get_async_session)):

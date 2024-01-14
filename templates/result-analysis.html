@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}BizMetrics{% endblock %}
+
+{% block res %}
+    <link rel="stylesheet" href="{{ url_for( 'static', path='css/work-space.css' )}}">
+{% endblock %}
+
+{% block content %}
+    <div class="comp">
+                <div class="__comp row">
+                   <div class="block-menu-comp col-3 is-marginless is-horizontal-align">
+                       <div class="__block-menu-comp col-8">
+                            <div class="__block-menu-comp-optionally">
+
+                            </div>
+                            <hr class="black">
+                            <div class="__block-menu-comp-core-elem">
+                                <div class="__block-menu-comp-friend">
+                                    <a class="button success is-full-width">Добавить друзей</a>
+                                </div>
+                                <div class="__block-menu-comp-friend">
+                                    <a class="button primary is-full-width">Результат на почту</a>
+                                </div>
+                            </div>
+                       </div>
+                   </div>
+                   <div class="block-space col" style="overflow: auto; max-height: 500px;">
+                    <table>
+                        <tr>
+                            {% for column in df[0] %}
+                                <th>{{ column }}</th>
+                            {% endfor %}
+                        </tr>
+                        {% for row in df %}
+                            <tr>
+                                {% for value in row.values() %}
+                                    <td>{{ value }}</td>
+                                {% endfor %}
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+                </div>
+    </div>
+<script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+
+    <script>
+      var fileInput = document.getElementById('fileInput');
+      var tableContainer = document.getElementById('tableContainer');
+
+      fileInput.addEventListener('change', function(e) {
+        var file = e.target.files[0];
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+          var data = new Uint8Array(e.target.result);
+          var workbook = XLSX.read(data, { type: 'array' });
+          var sheetName = workbook.SheetNames[0];
+          var worksheet = workbook.Sheets[sheetName];
+          var htmlTable = XLSX.utils.sheet_to_html(worksheet);
+
+          // Отображение данных Excel-таблицы на веб-странице
+          tableContainer.innerHTML = htmlTable;
+        };
+
+        reader.readAsArrayBuffer(file);
+      });
+    </script>
+{% endblock %}
