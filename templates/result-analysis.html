@@ -26,19 +26,9 @@
                        </div>
                    </div>
                    <div class="block-space col" style="overflow: auto; max-height: 500px;">
-                    <table>
-                        <tr>
-                            {% for column in df[0] %}
-                                <th>{{ column }}</th>
-                            {% endfor %}
-                        </tr>
-                        {% for row in df %}
-                            <tr>
-                                {% for value in row.values() %}
-                                    <td>{{ value }}</td>
-                                {% endfor %}
-                            </tr>
-                        {% endfor %}
+                     <table>
+
+                           {{ df.to_html() | safe}}
                     </table>
                 </div>
                 </div>

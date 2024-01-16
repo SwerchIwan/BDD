@@ -51,19 +51,31 @@
                     var form = new FormData();
                     form.append('file', file);
 
-                    fetch('/work/upload', {
-                        method: 'POST',
-                        body: form
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                       console.log(1)
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('POST', '/work/upload', true);
 
-                    })
-                    .catch(error => {
-                        console.error('Ошибка при загрузке файла:', error);
-                    });
-                }
+                    xhr.onload = function () {
+                        if (xhr.status === 200) {
+                            try {
+                                // Попытка разбора JSON-ответа
+                                var response = JSON.parse(xhr.responseText);
+                                var savedFileName = response.file_name;
+
+                                // Переадресация на страницу, передавая имя файла в URL
+                                window.location.href = '/pages/result_analysis?file=' + savedFileName;
+
+
+                            } catch (error) {
+                                console.error('Ошибка при разборе JSON:', error);
+                            }
+                        } else {
+                            console.error('Ошибка при загрузке файла:', xhr.statusText);
+                    }
+                };
+
+                xhr.send(form);
+            }
+
 
 
                 function validateForm() {

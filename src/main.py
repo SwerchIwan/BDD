@@ -38,6 +38,12 @@ app.include_router(
     tags=["Auth"],
 )
 
+app.include_router(
+    fastapi_users.get_verify_router(UserRead),
+    prefix="/auth",
+    tags=["auth"],
+)
+
 app.include_router(router_sub)
 app.include_router(router_group)
 app.include_router(router_tasks)

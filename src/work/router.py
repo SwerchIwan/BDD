@@ -5,7 +5,8 @@ import tempfile
 from fastapi import APIRouter, Depends, FastAPI, UploadFile, File
 from sqlalchemy import select, insert
 from sqlalchemy.ext.asyncio import AsyncSession
-from fastapi.responses import RedirectResponse
+from fastapi.responses import RedirectResponse, JSONResponse
+import os
 
 
 from src.database import get_async_session
@@ -25,14 +26,26 @@ async def upload_file(file: UploadFile = File(...)):
     try:
         data = await file.read()
 
-        data_io = BytesIO(data)
-        df = pd.read_excel(data_io)
-        df = df.fillna('')
-        print(df)
+        # Путь к директории сохранения файлов (в данном примере в /uploads)
+        upload_directory = "uploads"
 
-        return df
+        # Если директория не существует, создаем её
+        if not os.path.exists(upload_directory):
+            os.makedirs(upload_directory)
+
+        # Сохранение файла на сервере
+        filename = os.path.join(upload_directory, file.filename)
+        with open(filename, "wb") as f:
+            f.write(data)
+
+        print(1)
+        # Вернуть имя сохраненного файла для дальнейшей обработки
+        return JSONResponse(content={"file_name": filename})
     except Exception as e:
-        return RedirectResponse(url="/pages/error", status_code=302)
+        import traceback
+        traceback.print_exc()  # Добавляем вывод трассировки стека
+        return JSONResponse(content={"error": "Ошибка при загрузке файла"}, status_code=500)
+
 
 @router.get("/analysis")
 async def analysis(session: AsyncSession = Depends(get_async_session)):
