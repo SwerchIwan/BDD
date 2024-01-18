@@ -23,7 +23,7 @@ def get_email_template_dashboard(username: str):
     email.set_content(
         '<div>'
         f'<h1>Здравствуйте, {username} 😎😎😎!</h1> '
-        '<p> Благодарим вас за регистрацию на нашем сайте!! С уважением команда BizMetrics</p>'
+        '<p> Вот анализ по вашему файлу, благодарим за использование нашего сайта</p>'
         '</div>',
         subtype='html'
     )
@@ -51,8 +51,8 @@ def get_welcome_message(username: str, email_: str, code: int):
 
 
 @celery.task
-def send_email_report_dashboard(username: str):
-    email = get_email_template_dashboard(username)
+def send_email_report_dashboard_(email: str):
+    email = get_email_template_dashboard(email)
     with smtplib.SMTP_SSL(SMTP_HOST, SMTP_PORT) as server:
         server.login(SMTP_USER, SMTP_PASSWORD)
         server.send_message(email)

@@ -26,11 +26,6 @@ app = FastAPI(
 
 app.mount("/static", StaticFiles(directory="../static"), name="static")
 
-app.include_router(
-    fastapi_users.get_auth_router(auth_backend),
-    prefix="/auth",
-    tags=["Auth"],
-)
 
 app.include_router(
     fastapi_users.get_register_router(UserRead, UserCreate),
@@ -44,13 +39,18 @@ app.include_router(
     tags=["auth"],
 )
 
+app.include_router(
+    fastapi_users.get_auth_router(auth_backend, requires_verification=True),
+    prefix="/auth/jwt",
+    tags=["auth"],
+)
+
 app.include_router(router_sub)
 app.include_router(router_group)
 app.include_router(router_tasks)
 app.include_router(router_pages)
 app.include_router(router_work)
 app.include_router(router_analysis)
-
 
 
 app.mount("/media", StaticFiles(directory="../media"), name='media')

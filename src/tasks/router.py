@@ -1,9 +1,15 @@
 from fastapi import APIRouter, Depends
 
 from auth.base_config import current_user
-from tasks.tasks import send_email_report_dashboard, get_welcome_message
+from tasks.tasks import send_email_report_dashboard_, get_welcome_message
+
+from fastapi.responses import JSONResponse
+from jinja2 import Template
 
 router = APIRouter(prefix="/report")
+
+
+save_upload = []
 
 
 @router.get("/dashboard")
@@ -26,3 +32,9 @@ def get_reg_report(user=Depends(current_user)):
     }
 
 
+@router.post("/send_email_report_dashboard")
+async def send_email_report_dashboard(data: dict):
+    email = data.get('username')
+    print(save_upload)
+    send_email_report_dashboard_(email)
+    return JSONResponse(status_code=200)

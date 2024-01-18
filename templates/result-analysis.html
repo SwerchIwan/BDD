@@ -4,6 +4,48 @@
 
 {% block res %}
     <link rel="stylesheet" href="{{ url_for( 'static', path='css/work-space.css' )}}">
+    <style>
+        .form-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .form-container {
+            background-color: #fff;
+            width: 800px;
+            padding: 20px;
+        }
+
+        .form-container h2 {
+            margin-bottom: 20px;
+        }
+
+        .form-container div {
+            margin-bottom: 10px;
+        }
+
+        .form-container label {
+            display: block;
+            font-weight: bold;
+        }
+
+        .form-container input {
+            width: 100%;
+            padding: 5px;
+        }
+
+        .form-container button {
+            margin-top: 10px;
+        }
+    </style>
 {% endblock %}
 
 {% block content %}
@@ -17,44 +59,128 @@
                             <hr class="black">
                             <div class="__block-menu-comp-core-elem">
                                 <div class="__block-menu-comp-friend">
-                                    <a class="button success is-full-width">Добавить друзей</a>
+                                    <a class="button success is-full-width" onclick="showAddFriendsForm()">Добавить друзей</a>
                                 </div>
                                 <div class="__block-menu-comp-friend">
-                                    <a class="button primary is-full-width">Результат на почту</a>
+                                    <a class="button primary is-full-width" id="email-button">Результат на почту</a>
                                 </div>
                             </div>
                        </div>
                    </div>
-                   <div class="block-space col" style="overflow: auto; max-height: 500px;">
-                     <table>
+                   <div class="block-twice-comp col" >
+                       <div class="block-space is-full-width" style="overflow: auto; max-height: 500px;">
+                           <table>
 
-                           {{ df.to_html() | safe}}
-                    </table>
-                </div>
+                               {{ df.to_html() | safe}}
+                        </table>
+                        </div>
+
+                       <div class="block-information row" style = "overflow: auto; max-height: 300px;">
+                           <div class="__block-information col-6">
+                               <p class="text-information">{% if info %} Информация о структуре и типах данных  {{ info | safe}} {% endif %}</p>
+                           </div>
+                           <div class="__block-information-graph col-6" style="overflow: auto;">
+                                {% for plot_image in plot_images %}
+                                <img src="data:image/png;base64,{{ plot_image }}" alt="">
+                                {% endfor %}
+                            </div>
+                       </div>
+                   </div>
                 </div>
     </div>
-<script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
 
-    <script>
-      var fileInput = document.getElementById('fileInput');
-      var tableContainer = document.getElementById('tableContainer');
+<script>
+    function showAddFriendsForm() {
+        // Создание нового элемента формы
+        var addFriendsForm = document.createElement("div");
+        addFriendsForm.id = "add-friends-form";
+        addFriendsForm.innerHTML = `
+            <div class="form-overlay">
+                <div class="form-container">
+                    <h2>Выберете людей, которых хотите добавить себе в группу</h2>
+                    <div>
+                        <label>Email 1:</label>
+                        <input type="email" name="email1" placeholder="Введите email">
+                    </div>
+                    <div>
+                        <label>Email 2:</label>
+                        <input type="email" name="email2" placeholder="Введите email">
+                    </div>
+                    <div>
+                        <label>Email 3:</label>
+                        <input type="email" name="email3" placeholder="Введите email">
+                    </div>
+                    <div>
+                        <button onclick="addFriendsToGroup()" class="button success">Добавить</button>
+                        <button onclick="closeAddFriendsForm()" class="button error">Закрыть</button>
+                    </div>
+                    <div id="group-create-message" style="display: none;">Группа успешно создана!</div>
+                </div>
+            </div>
+        `;
 
-      fileInput.addEventListener('change', function(e) {
-        var file = e.target.files[0];
-        var reader = new FileReader();
+        // Добавление новой формы на страницу
+        document.body.appendChild(addFriendsForm);
+    }
+</script>
 
-        reader.onload = function(e) {
-          var data = new Uint8Array(e.target.result);
-          var workbook = XLSX.read(data, { type: 'array' });
-          var sheetName = workbook.SheetNames[0];
-          var worksheet = workbook.Sheets[sheetName];
-          var htmlTable = XLSX.utils.sheet_to_html(worksheet);
+<script>
+    function addFriendsToGroup() {
+        // Получение значений введенных email'ов
+        var email1 = document.querySelector("input[name=email1]").value;
+        var email2 = document.querySelector("input[name=email2]").value;
+        var email3 = document.querySelector("input[name=email3]").value;
 
-          // Отображение данных Excel-таблицы на веб-странице
-          tableContainer.innerHTML = htmlTable;
+        // Создание объекта с данными для отправки на сервер
+        var data = {
+            email1: email1,
+            email2: email2,
+            email3: email3
         };
 
-        reader.readAsArrayBuffer(file);
-      });
-    </script>
+        // Отправка данных на сервер
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/group/create-group");
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    // Успешный ответ от сервера
+                    var response = JSON.parse(xhr.responseText);
+                    console.log(response); // Вы можете выполнить дополнительные действия в зависимости от ответа сервера
+
+                    // Выводим сообщение о создании группы
+                    var groupCreateMessage = document.getElementById("group-create-message");
+                    groupCreateMessage.style.display = "block";
+
+                    // Закрываем форму
+                    closeAddFriendsForm();
+                } else {
+                    // Ошибка от сервера
+                    console.error("Ошибка " + xhr.status + ": " + xhr.statusText);
+                }
+            }
+        };
+        xhr.send(JSON.stringify(data));
+    }
+</script>
+
+<script>
+    function closeAddFriendsForm() {
+        var addFriendsForm = document.getElementById("add-friends-form");
+        addFriendsForm.remove();
+    }
+</script>
+
+<script>
+const emailButton = document.getElementById('email-button');
+emailButton.addEventListener('click', async () => { try {
+
+const response = await fetch('/report/dashboard', { method: 'POST',
+headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: 'Здесь указываем имя пользователя' })  });
+if (response.ok) { alert('Письмо отправлено!'); }
+else { alert('Возникла ошибка при отправке письма!'); } }
+catch (error) { console.error('Произошла ошибка:', error); } });
+</script>
+
 {% endblock %}

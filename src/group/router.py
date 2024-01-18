@@ -7,6 +7,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from src.database import get_async_session
 from src.auth.model import user
 
+from pydantic import BaseModel
+
 
 router = APIRouter(
     prefix="/group",
@@ -14,24 +16,20 @@ router = APIRouter(
 )
 
 
-@router.get("/create_group")
-async def create_group(email: str, session: AsyncSession = Depends(get_async_session)):
-    query = select(user).where(user.c.email == email)
-    result = await session.execute(query)
-    # Проверяем, есть ли результаты запроса
-    user_exists = result.scalar() is not None
+class GroupCreateRequest(BaseModel):
+    email1: str
+    email2: str
+    email3: str
 
-    if user_exists:
-        # Возвращаем успешный результат
-        return {
-            "status": "200",
-            "data": None,
-            "details": None,
-        }
-    else:
-        # Возвращаем ошибку
-        return {
-            "status": "error",
-            "data": None,
-            "details": "not_valid_email"
-        }
+@router.post("/create-group")
+async def create_group(request: GroupCreateRequest):
+    email1 = request.email1
+    email2 = request.email2
+    email3 = request.email3
+
+    print(email3)
+    # Ваша логика сохранения группы
+    # ...
+
+    # Возвращаем успешный результат
+    return {"status": "200", "data": None, "details": None}

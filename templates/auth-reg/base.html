@@ -19,7 +19,7 @@
                         <img src="{{ url_for( 'static', path='logo.svg' )}}" alt="">
                     </div>
                 </div>
-                <form action="" class="reg">
+                <form action="/pages/reg" class="reg" method="post">
                      <div class="row is-horizontal-align">
                             <div class="input-row is-marginless col-12">
                                 <div class="un_logo_text  col-9">{% block un_logo_text %} {% endblock %}</div>
@@ -36,7 +36,7 @@
                                     <label for="password">Пароль</label>
                                     <div class="input-container">
                                           <i class="icon"><img clas src="{{ url_for( 'static', path='icon/padlock.png' )}}" alt=""></i>
-                                          <input type="password" id="password" name="password" required minlength="4" maxlength="8" size="10" placeholder="Пароль"/>
+                                          <input type="password" id="password" name="password" required minlength="4" maxlength="16" size="10" placeholder="Пароль"/>
                                     </div>
                                 </div>
 
