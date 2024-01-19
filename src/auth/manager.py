@@ -5,6 +5,7 @@ from fastapi import Depends, Request, HTTPException, status
 from fastapi_users import BaseUserManager, IntegerIDMixin, exceptions, models, schemas, InvalidPasswordException
 from fastapi_users.jwt import SecretType, decode_jwt, generate_jwt
 
+
 from .model import User
 from .utils import get_user_db
 from random import randint
@@ -20,6 +21,7 @@ class UserManager(IntegerIDMixin, BaseUserManager[User, int]):
 
     async def on_after_register(self, user: User, request: Optional[Request] = None):
         code = randint(100000, 999999)
+        print(1)
         send_welcome_message(user.username, user.email, code)
         print(f"User {user.id} has registered. ")
 
