@@ -1,5 +1,7 @@
  {% extends "base.html" %}
 
+ {% block path %} action="/pages/reg" {% endblock %}
+
  {% block title %} Регистрация {% endblock %}
 
  {% block un_logo_text %} Создайте свой аккаунт ! {% endblock %}
@@ -15,5 +17,8 @@
      </div>
  </div>
  {% endblock %}
+
+ {% block btn_value %}  value="Зарегистрироваться" {% endblock %}
+
 
  {% block redirect %}  <a href="{{ url_for('get_auth_page') }}"> У вас уже есть аккаунт? </a> {% endblock %}

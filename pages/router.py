@@ -4,7 +4,7 @@ from typing import List, Dict
 from fastapi_users import schemas
 from fastapi import APIRouter, Request, Query, Depends, File, UploadFile, Path, Form
 from fastapi.templating import Jinja2Templates
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, RedirectResponse
 import os
 import pandas as pd
 import io
@@ -85,6 +85,16 @@ def get_result_analysis_page(request: Request, file, user=Depends(current_user))
     return templates.TemplateResponse("result-analysis.html", {"request": request, "file": file, "df": df, "info": info, "plot_images": plot_images})
 
 
+@router.get("/verify")
+def get_verify_page(request: Request):
+    return templates_reg.TemplateResponse("verify.html", {"request": request})
+
+
+@router.post("/verify")
+def get_verify_page(request: Request, password: str = Form()):
+    return templates_reg.TemplateResponse("verify.html", {"request": request})
+
+
 @router.get("/main")
 def get_main_page(request: Request):
     return templates.TemplateResponse("main.html", {"request": request})
@@ -101,11 +111,10 @@ async def get_reg_page(request: Request, username: str = Form(), email: str = Fo
     user_create = UserCreate(username=username, email=email, password=password, role_id=1)
     try:
         user = await user_manager.create(user_create, request=request)
-        print('success')
-        return {"message": "User registered successfully"}
+        return templates_reg.TemplateResponse("verify.html", {"request": request})
     except Exception as e:
         print(f"Caught an exception: {e}")
-        raise HTTPException(status_code=400, detail="User with this email already exists")
+        raise HTTPException("Ошибка регистрации")
 
 
 @router.get("/auth")
@@ -115,14 +124,9 @@ def get_auth_page(request: Request):
 
 @router.post("/auth")
 async def get_auth_page(request: Request, email: str = Form(), password: str = Form(), user_manager: UserManager = Depends(get_user_manager)):
-    user_create = UserRead(email=email, password=password)
-    try:
-        user = await user_manager.create(user_create, request=request)
-        return templates_reg.TemplateResponse("auth.html", {"request": request})
-    except Exception as e:
-        print(f"Caught an exception: {e}")
-        raise HTTPException(status_code=400, detail="User with this email already exists")
-
+    user = UserRead(email=email, password=password)
+    pass
+    return {"message": "Success authentication"}
 
 @router.get("/analysis")
 def get_analysis_page(request: Request, user=Depends(current_user)):
