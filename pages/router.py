@@ -68,7 +68,7 @@ def generate_plots(df):
 
 
 @router.get("/result_analysis", response_class=HTMLResponse)
-def get_result_analysis_page(request: Request, file, user=Depends(current_user)):
+def get_result_analysis_page(request: Request, file):
     df = pd.read_excel(file)
     info = df.describe().to_html()
 
@@ -128,8 +128,9 @@ async def get_auth_page(request: Request, email: str = Form(), password: str = F
     pass
     return {"message": "Success authentication"}
 
+
 @router.get("/analysis")
-def get_analysis_page(request: Request, user=Depends(current_user)):
+def get_analysis_page(request: Request):
     return templates.TemplateResponse("work.html", {"request": request})
 
 
